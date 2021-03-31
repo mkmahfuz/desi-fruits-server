@@ -30,7 +30,7 @@ app.get('/testadd',(req, res) => {
 //mongodb connection
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://${dbUser}:${dbPass}@cluster0.lroqv.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, connectTimeoutMS: 30000, keepAlive: 1 });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, connectTimeoutMS: 40000, keepAlive: 1 });
 
 //api for mongodb related collections
 client.connect(err => {
