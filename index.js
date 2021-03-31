@@ -39,7 +39,7 @@ client.connect(err => {
     const fruitsCollection = client.db("desifruits").collection("fruits");
 
     // perform actions on the collection object
-
+//test1
     //GET : get all fruits from fruits collection objects
     try{
 
