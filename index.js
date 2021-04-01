@@ -41,26 +41,26 @@ client.connect(err => {
     // perform actions on the collection object
 //test1
     //GET : get all fruits from fruits collection objects
-    try{
+    // try{
 
-        app.get('/allFruits', (req, res) => {
-            fruitsCollection.find({}).toArray()
-                .then((items) => {
-                    console.log("All-Fruits: ", items);
-                    res.send(items);
-                })
-        })
-    }catch(err){
-        console.log(err);
-    }
-
-    // app.get('/allFruits', (req, res) => {
-    //     fruitsCollection.find({}).toArray()
-    //         .then((items) => {
-    //             console.log("All-Fruits: ", items);
-    //             res.send(items);
-    //         })
-    // })
+    //     app.get('/allFruits', (req, res) => {
+    //         fruitsCollection.find({}).toArray()
+    //             .then((items) => {
+    //                 console.log("All-Fruits: ", items);
+    //                 res.send(items);
+    //             })
+    //     })
+    // }catch(err){
+    //     console.log(err);
+    // }
+  //GET : get all fruits from fruits collection objects
+    app.get('/allFruits', (req, res) => {
+        fruitsCollection.find({}).toArray()
+            .then((items) => {
+                console.log("All-Fruits: ", items);
+                res.send(items);
+            })
+    })
 
     //GET : get single fruit from database
     app.get('/fruit/:id', (req, res) => {
