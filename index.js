@@ -20,11 +20,7 @@ app.listen(port, () => {
 
 //general api not database related. 
 app.get('/', (req, res) => {
-    res.send("This is the server root, Howdy")
-})
-
-app.get('/testadd', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.send("This is the server root, Howdy mkm")
 })
 
 //mongodb connection
