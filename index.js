@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.send("This is the server root, Howdy")
 })
 
-app.get('/testadd',(req, res) => {
+app.get('/testadd', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
 
@@ -34,30 +34,18 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 //api for mongodb related collections
 client.connect(err => {
-    console.log(err);
+    console.log("DB ERROR:", err);
     console.log("mongodb connected: OK");
     const fruitsCollection = client.db("desifruits").collection("fruits");
+    const ordersCollection = client.db("desifruits").collection("orders");
 
     // perform actions on the collection object
-//test1
-    //GET : get all fruits from fruits collection objects
-    // try{
 
-    //     app.get('/allFruits', (req, res) => {
-    //         fruitsCollection.find({}).toArray()
-    //             .then((items) => {
-    //                 console.log("All-Fruits: ", items);
-    //                 res.send(items);
-    //             })
-    //     })
-    // }catch(err){
-    //     console.log(err);
-    // }
-  //GET : get all fruits from fruits collection objects
+    //GET : get all fruits from fruits collection objects
     app.get('/allFruits', (req, res) => {
         fruitsCollection.find({}).toArray()
             .then((items) => {
-                console.log("All-Fruits: ", items);
+                //console.log("All-Fruits: ", items);
                 res.send(items);
             })
     })
@@ -75,7 +63,7 @@ client.connect(err => {
     //POST : add one fruit to fruits collection objects
     app.post('/addFruit', (req, res) => {
         const newFruit = req.body;
-        console.log(newFruit)
+        //console.log(newFruit);
         fruitsCollection.insertOne(newFruit)
             .then(result => {
                 res.send(result.insertedCount > 0);
@@ -83,14 +71,33 @@ client.connect(err => {
             })
     })
 
+    //POST : add one order to order collection objects
+    app.post('/addOrder', (req, res) => {
+        const newOrder = req.body;
+        //console.log(newFruit);
+        ordersCollection.insertOne(newOrder)
+            .then(result => {
+                res.send(result.insertedCount > 0);
+                console.log(result.insertedCount);
+            })
+    })
+    //GET : get all orders for specific user  from orders collection object
+    app.get('/orders', (req, res) => {
+        const userEmail = req.query.email;
+        //console.log(userEmail);
+        ordersCollection.find({ email: userEmail }).toArray()
+            .then((docs) => {
+                res.send(docs);
+            })
+    })
 
 
     //DELETE : delete one fruit from fruits collection objects
-    app.delete('/delete/:id', (req, res) => {
+    app.delete('/deleteFruit/:id', (req, res) => {
         const objId = req.params.id;
         fruitsCollection.deleteOne({ _id: ObjectId(objId) })
             .then((result) => {
-                // console.log(result);
+                console.log(result);
                 res.send(result.deletedCount > 0); //delete is successfull 
             })
         //console.log(req.params.id)
